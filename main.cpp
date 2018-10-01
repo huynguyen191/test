@@ -110,11 +110,7 @@ void drawLeaf(void) {
   glColor3f(0.1,0.9,0.1);
   int scale = 20;
   glBegin(GL_POLYGON);
-//  glVertex2d(0.0,0.0);
-//  glVertex2d(1.5/scale,4.5/scale);
-//  glVertex2d(0,9.0/scale);
-//  glVertex2d(-1.5/scale,4.5/scale);
-//  glVertex2d(0.0,0.0);
+
   glVertex2d(0.0,0.0);
   glVertex2d(1.0/scale,1.0/scale);
   glVertex2d(0.8/scale,5.0/scale);
@@ -127,17 +123,7 @@ void drawLeaf(void) {
 void generateBody() {
 
 	string strCurrent = Rules.F;
-//	string strCurrent = "";
-//	for (int i = 0; i < str.length(); i++) {
-//		char current =  str.at(i);
-//		if (current == Rules.f) {
-//			strCurrent += Rules.F;
-//		}
-//		else
-//			strCurrent += current;
-//
-//
-//	}
+
 	cout << strCurrent;
 
 	str += strCurrent;
