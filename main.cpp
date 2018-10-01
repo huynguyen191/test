@@ -7,8 +7,8 @@
 #include<string>
 #include<stack>
 using namespace std;
-float width = 2.0;
-float lengthScale = 0.7;
+float width = 5.0;
+float lengthScale = 0.75;
 float leng1 = 2;
 float leng2 = 5;
 float leng3 = 2.5;
@@ -20,8 +20,9 @@ void draw();
 
 struct {
 	char f = 'F';
-	string F = "[+++++X]^BDB[-----X]^BDB[++++++X]^B";
-	string G = "[+^[[[--^X]^L]L[+^X]^F[+^X]]]";
+	char k = 'K';
+	string F = "D[++M[+++++X]][--M[-----X]]BD[--M[-----X]]BD[++M[+++++X]]^B";
+	string G = "[^^[[[+++^X]]^L[++^X]^K[++^X]]]";
 	//string F = "F+F--F+F";
 }Rules;
 
@@ -71,10 +72,10 @@ void TurnRight() {
 }
 void TurnRightWithCustomizedAngle() {
 
-	glRotatef(-3, 0, 0, 1);
+	glRotatef(-1, 0, 0, 1);
 
 }
-void DrawLine(float scale) {
+void DrawLine(float scale, float length) {
 
 
 	glLineWidth(width*scale);
@@ -82,51 +83,12 @@ void DrawLine(float scale) {
 	glBegin(GL_LINES);
 	glColor3f(0.0, 1.0, 0.0);// xanh
 	glVertex3f(0,0,0);
-	glVertex3f(0,leng1,0);
+	glVertex3f(0,length,0);
 	glEnd();
-	glTranslatef(0, leng1, 0);
-
-}
-void DrawBone() {
-
-
-	glLineWidth(width);
-
-	glBegin(GL_LINES);
-	glColor3f(0.0, 1.0, 0.0);// xanh
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, leng2, 0);
-	glEnd();
-	glTranslatef(0, leng2, 0);
-
-}
-void DrawBone1() {
-
-
-	glLineWidth(width);
-
-	glBegin(GL_LINES);
-	glColor3f(0.0, 1.0, 0.0);// xanh
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, leng3, 0);
-	glEnd();
-	glTranslatef(0, leng3, 0);
+	glTranslatef(0, length, 0);
 
 }
 
-void DrawBone2() {
-
-
-	glLineWidth(width);
-
-	glBegin(GL_LINES);
-	glColor3f(0.0, 1.0, 0.0);// xanh
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, leng4, 0);
-	glEnd();
-	glTranslatef(0, leng4, 0);
-
-}
 void drawDot(){
     float height = 0.1;
     glLineWidth(width);
@@ -165,13 +127,14 @@ void drawLeaf(void) {
 void generateBody() {
 
 	string strCurrent = Rules.F;
+//	string strCurrent = "";
 //	for (int i = 0; i < str.length(); i++) {
-//		char curent =  str.at(i);
-//		if (curent == Rules.f) {
-//			strCurent += Rules.F;
+//		char current =  str.at(i);
+//		if (current == Rules.f) {
+//			strCurrent += Rules.F;
 //		}
 //		else
-//			strCurent += curent;
+//			strCurrent += current;
 //
 //
 //	}
@@ -189,7 +152,7 @@ void generateCrown() {
 
 	for (int i = 0; i < strcrown.length(); i++) {
 		char current =  strcrown.at(i);
-		if (current == Rules.f) {
+		if (current == Rules.f || current == Rules.k) {
 			strCurrent += Rules.G;
 		}
 		else
@@ -206,15 +169,18 @@ void draw() {
 		char current = str.at(i);
 		if (current == 'F') {
 			// drawLine
-			DrawLine(1.0);
+			DrawLine(1.0, leng1);
 			//glTranslated(x, y + 5, z);
 		}
 		else if (current == 'B') {
 			// turn Left
-			DrawLine(1.0);
+			DrawLine(1.0, leng1 );
 		}
-		else if(current == 'L') {
-            DrawLine(0.5);
+		else if(current == 'L' || current == 'K') {
+            DrawLine(0.35, leng1);
+		}
+		else if(current == 'M') {
+            DrawLine(0.2, leng1*0.2);
 		}
 		else if (current == 'X') {
 			// turn Left
@@ -244,11 +210,7 @@ void draw() {
 			pop();
 			S.pop();
 		}
-		else if (current == '!') {
-			if (S.empty()) DrawBone();
-			else if(S.size() == 1) DrawBone1();
-			else if (S.size() == 2) DrawBone2();
-		}
+
 	}
 }
 int main(int argc, char** argv)
@@ -257,7 +219,7 @@ int main(int argc, char** argv)
 
 	glutInitDisplayMode(GLUT_SINGLE || GLUT_RGB);
 
-	glutInitWindowSize(800, 800);
+	glutInitWindowSize(1000, 1000);
 
 	glutInitWindowPosition(100, 100);
 
