@@ -42,7 +42,7 @@ void init(void)
 
 void ReShape(int width, int height)
 {
-	glViewport(0, 0, width, height);
+	glViewport(0, -100, width, height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-10.0, 10.0, -10.0, 10.0, 10.0, -10.0);
@@ -81,7 +81,7 @@ void DrawLine(float scale, float length) {
 	glLineWidth(width*scale);
 
 	glBegin(GL_LINES);
-	glColor3f(0.0, 1.0, 0.0);// xanh
+	glColor3f(0.0, 1.0, 0.0);// green
 	glVertex3f(0,0,0);
 	glVertex3f(0,length,0);
 	glEnd();
@@ -94,7 +94,7 @@ void drawDot(){
     glLineWidth(width);
 
 	glBegin(GL_LINES);
-	glColor3f(1, 1, 1);// trang
+	glColor3f(1, 1, 1);// white
 	glVertex3f(0,0,0);
 	glVertex3f(0,height,0);
 	glEnd();
@@ -207,9 +207,9 @@ int main(int argc, char** argv)
 
 	glutInitWindowSize(1000, 1000);
 
-	glutInitWindowPosition(100, 100);
+	glutInitWindowPosition(80, 80);
 
-	glutCreateWindow("BTL");
+	glutCreateWindow("L-system Bamboo");
 
 	Init();
 	for (int i = 0; i < 2; i++) {
